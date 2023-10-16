@@ -10,14 +10,12 @@
 <body>
 
     @include('user/layouts/header')
-       @section('main-content')
-          @show
-
-
-
-     @include('user/layouts/footer')
-
-
+  
+    @section('main-content')
+      @show
+    
+    @include('user/layouts/footer')
+  
 </body>
 
 </html>
