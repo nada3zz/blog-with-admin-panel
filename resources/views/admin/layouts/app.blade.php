@@ -3,22 +3,21 @@
 
 <head>
 
-    @include('admin.layouts.head');
+    @include('admin.layouts.head')
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        @include('admin.layouts.header');
+        @include('admin.layouts.header')
 
-        @include('admin.layouts.sidebar');
+        @include('admin.layouts.sidebar')
 
-        <div class="content-wrapper">
-            @yield('content')
-        </div>
+        @section('main-content')
+        @show
 
 
-        @include('admin.layouts.footer');
+        @include('admin.layouts.footer')
     </div>
 
     @include('admin.layouts.scripts')
