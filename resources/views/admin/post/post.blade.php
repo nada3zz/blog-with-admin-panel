@@ -29,9 +29,11 @@
                         <div class="card-header">
                             <h3 class="card-title">Titles</h3>
                         </div>
+                   @include('includes.errorMsg')
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form action="{{ route('post.store')}}" method="POST">
+                            {{ csrf_field() }}
                             <div class="row"> <!-- Add this row to clearly wrap your columns -->
                                 <div class="card-body col-lg-6">
                                     <div class="form-group">
@@ -45,8 +47,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tag">Post Tag</label>
-                                        <input type="text" class="form-control" id="tag" name="tag" placeholder="Tag">
+                                        <label for="tag">Post Slug</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" placeholder="slug">
                                     </div>
                                 </div>
 
@@ -94,6 +96,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('post.index') }}" class="btn btn-warning">Back</a>
                             </div>
                         </form>
                     </div>
@@ -104,4 +107,16 @@
         </section>
 
     </div>
+@endsection
+
+@section('footerSection')
+
+<!-- Post form specific script -->
+<script>
+    $(function() {
+        // Summernote
+        $('#summernote').summernote()
+
+    })
+</script>
 @endsection

@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\UserHomeController;
+use App\Http\Controllers\User\UserPostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,26 +21,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.blog');
+//User Routes
+
+Route::group(['namespace' => 'User'], function(){
+
+    Route::get('/',  [UserHomeController::class, 'index']);
+    Route::get('post',  [UserPostController::class, 'index'])->name('post');
+
 });
 
-Route::get('post', function () {
-    return view('user.post');
-})->name('post');
 
-Route::get('admin/home', function () {
-    return view('admin.home');
-});
+//Admin Routes
 
-Route::get('admin/post', function () {
-    return view('admin.post.post');
-});
+Route::get('admin/home',  [AdminHomeController::class, 'index'])->name('admin.home');
+Route::resource('admin/post', AdminPostController::class);
+Route::resource('admin/tag', TagController::class);
+Route::resource('admin/category', CategoryController::class);
+Route::resource('admin/user', UserController::class);
 
-Route::get('admin/tag', function () {
-    return view('admin.tag.tag');
-});
-
-Route::get('admin/category', function () {
-    return view('admin.category.category');
-});

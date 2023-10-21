@@ -16,11 +16,11 @@
         @section('main-content')
         @show
 
-
+        @include('admin.layouts.scripts')
         @include('admin.layouts.footer')
     </div>
 
-    @include('admin.layouts.scripts')
+
 
 </body>
 

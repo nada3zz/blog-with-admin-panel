@@ -30,11 +30,9 @@
                     <div class="card-header">
                         <h3 class="card-title">Titles</h3>
                     </div>
-                    @include('includes.errorMsg')
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{ route('tag.store')}}" method="POST">
-                        {{ csrf_field() }}
+                    <form>
                         <div class="row"> <!-- Add this row to clearly wrap your columns -->
                             <div class="card-body col-lg-6">
                                 <div class="form-group">
@@ -43,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="slug">Tag Slug</label>
-                                    <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
+                                    <input type="text" class="form-control" id="slug" name="slug" placeholder="slug">
                                 </div>
                             </div>
                             <!-- /.col-->
@@ -52,7 +50,6 @@
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('tag.index') }}" class="btn btn-warning">Back</a>
                         </div>
                     </form>
                 </div>
