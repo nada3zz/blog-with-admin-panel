@@ -76,7 +76,8 @@ class AdminPostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post= Post::where('id', $id)->first();
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -88,7 +89,22 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'subTitle' => 'required',
+            'slug' => 'required',
+            'body' => 'required',
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->subTitle = $request->subTitle;
+        $post->slug = $request->slug;
+        $post->body = $request->body;
+
+        $post->save();
+
+        return redirect( route('post.index'));
     }
 
     /**
@@ -99,6 +115,7 @@ class AdminPostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::where('id', $id)->delete();
+        return redirect()->back();
     }
 }

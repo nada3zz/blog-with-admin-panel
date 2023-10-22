@@ -39,8 +39,28 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td> {{ $tag->name }} </td>
                                         <td>{{ $tag->slug }}</td>
-                                        <td>Edit</td>
-                                        <td>Delete</td>
+                                        <td class="text-center"><a href="{{ route('tag.edit', $tag->id) }}"><i
+                                                    class="far fa-edit"></i></a></td>
+                                        <td class="text-center">
+                                            <form id="delete-form-{{ $tag->id }}"
+                                                action="{{ route('tag.destroy', $tag->id) }}" method="POST"
+                                                style="display: none">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href=""
+                                                onclick="
+                                    if(confirm('Are you sure you want to delete this?'))
+                                     {
+                                        event.preventDefault();
+                                         document.getElementById('delete-form-{{ $tag->id }}').submit();
+                                      } else {
+                                        event.preventDefault();
+                                      }
+                                         ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

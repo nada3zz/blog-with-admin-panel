@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Tag Name</th>
+                                    <th>category Name</th>
                                     <th>Slug</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -40,8 +40,28 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td> {{ $category->name }} </td>
                                         <td>{{ $category->slug }}</td>
-                                        <td>Edit</td>
-                                        <td>Delete</td>
+                                        <td class="text-center"><a href="{{ route('category.edit', $category->id) }}"><i
+                                                    class="far fa-edit"></i></a></td>
+                                        <td class="text-center">
+                                            <form id="delete-form-{{ $category->id }}"
+                                                action="{{ route('category.destroy', $category->id) }}" method="POST"
+                                                style="display: none">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href=""
+                                                onclick="
+                            if(confirm('Are you sure you want to delete this?'))
+                             {
+                                event.preventDefault();
+                                 document.getElementById('delete-form-{{ $category->id }}').submit();
+                              } else {
+                                event.preventDefault();
+                              }
+                                 ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -49,7 +69,7 @@
                             <tfoot>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Tag Name</th>
+                                    <th>category Name</th>
                                     <th>Slug</th>
                                     <th>Edit</th>
                                     <th>Delete</th>

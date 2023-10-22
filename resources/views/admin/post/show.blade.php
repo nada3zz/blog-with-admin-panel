@@ -31,6 +31,7 @@
                                     <th>Title</th>
                                     <th>Sub Title</th>
                                     <th>Slug</th>
+                                    <th>body</th>
                                     <th>Created At</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -43,9 +44,30 @@
                                         <td> {{ $post->title }} </td>
                                         <td> {{ $post->subtitle }} </td>
                                         <td>{{ $post->slug }}</td>
+                                        <td>{{ $post->body }}</td>
                                         <td>{{ $post->created_at }}</td>
-                                        <td>Edit</td>
-                                        <td>Delete</td>
+                                        <td class="text-center"><a href="{{ route('post.edit', $post->id) }}"><i
+                                                    class="far fa-edit"></i></a></td>
+                                        <td class="text-center">
+                                            <form id="delete-form-{{ $post->id }}"
+                                                action="{{ route('post.destroy', $post->id) }}" method="POST"
+                                                style="display: none">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href=""
+                                                onclick="
+                                            if(confirm('Are you sure you want to delete this?'))
+                                             {
+                                                event.preventDefault();
+                                                 document.getElementById('delete-form-{{ $post->id }}').submit();
+                                              } else {
+                                                event.preventDefault();
+                                              }
+                                                 ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -56,6 +78,7 @@
                                     <th>Title</th>
                                     <th>Sub Title</th>
                                     <th>Slug</th>
+                                    <th>body</th>
                                     <th>Created At</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
