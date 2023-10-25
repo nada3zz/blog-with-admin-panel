@@ -1,5 +1,8 @@
 @extends('admin.layouts.app')
 
+@section('headSection')
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
+@endsection
 @section('main-content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -29,26 +32,29 @@
                         <div class="card-header">
                             <h3 class="card-title">Titles</h3>
                         </div>
-                   @include('includes.errorMsg')
+                        @include('includes.errorMsg')
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('post.store')}}" method="POST">
+                        <form action="{{ route('post.store') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="row"> <!-- Add this row to clearly wrap your columns -->
                                 <div class="card-body col-lg-6">
                                     <div class="form-group">
                                         <label for="title">Post Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            placeholder="Title">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="subTitle">Post SubTitle</label>
-                                        <input type="text" class="form-control" id="subTitle" name="subTitle" placeholder="Sub Title">
+                                        <input type="text" class="form-control" id="subTitle" name="subTitle"
+                                            placeholder="Sub Title">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tag">Post Slug</label>
-                                        <input type="text" class="form-control" id="slug" name="slug" placeholder="slug">
+                                        <input type="text" class="form-control" id="slug" name="slug"
+                                            placeholder="slug">
                                     </div>
                                 </div>
 
@@ -57,7 +63,8 @@
                                         <label for="exampleInputFile">File input</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="image" name="image">
+                                                <input type="file" class="custom-file-input" id="image"
+                                                    name="image">
                                                 <label class="custom-file-label" for="image">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
@@ -65,21 +72,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- /.col -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Multiple</label>
-                  <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                    <option>Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                  </select>
-                </div>
-                <!-- /.form-group -->
+                                    <!-- /.col -->
+
+                                    <div class="form-group">
+                                        <label>Select tags</label>
+                                        <select class="select2" multiple="multiple" data-placeholder="Select a State"
+                                            style="width: 100%;" name="tags[]">
+                                           @foreach ($tags as $tag)
+                                           <option value="{{ $tag->id }}"> {{ $tag->name}}</option> 
+                                           @endforeach
+                                        </select>
+                                    </div>
+                 
+                                    <div class="form-group">
+                                        <label>Select Categories</label>
+                                        <select class="select2" multiple="multiple" data-placeholder="Select a State"
+                                            style="width: 100%;"  name="categories[]">
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"> {{ $category->name}}</option> 
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="status">
@@ -87,24 +100,24 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="card card-outline card-info">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                Summernote
-                                            </h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <textarea id="summernote" name="body" class ="textarea" placeholder="Place some text here">
+
+                                <div class="card card-outline card-info mx-3">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            Body
+                                        </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <textarea id="summernote" name="body" class ="textarea" placeholder="Place some text here">
 
                                             </textarea>
-                                        </div>
-                                        <div class="card-footer">
+                                    </div>
+                                    <div class="card-footer">
 
-                                        </div>
                                     </div>
                                 </div>
+
                                 <!-- /.col-->
                             </div> <!-- Close your row -->
 
@@ -125,13 +138,22 @@
 @endsection
 
 @section('footerSection')
+    <!-- Select2 -->
+    <script src=" {{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- Post form specific script -->
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
 
-<!-- Post form specific script -->
-<script>
-    $(function() {
-        // Summernote
-        $('#summernote').summernote()
+            //Initialize Select2 Elements
+            $('.select2').select2()
 
-    })
-</script>
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+        })
+    </script>
 @endsection
