@@ -78,9 +78,15 @@
                                     <div class="form-group">
                                         <label>Select Tags</label>
                                         <select class="select2" multiple="multiple" data-placeholder="Select a State"
-                                            style="width: 100%;"  name="tags[]">
+                                            style="width: 100%;" name="tags[]">
                                             @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}"> {{ $tag->name}}</option> 
+                                                <option value="{{ $tag->id }}"
+                                                    @foreach ($post->tags as $postTag)
+                                                   @if ($postTag->id == $tag->id)
+                                                      selected
+                                                    @endif @endforeach>
+                                                    {{ $tag->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -88,9 +94,14 @@
                                     <div class="form-group">
                                         <label>Select Categories</label>
                                         <select class="select2" multiple="multiple" data-placeholder="Select a State"
-                                            style="width: 100%;"  name="categories[]">
+                                            style="width: 100%;" name="categories[]">
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}"> {{ $category->name}}</option> 
+                                                <option value="{{ $category->id }}"
+                                                    @foreach ($post->categories as $postCategory)
+                                                       @if ($postCategory->id == $category->id)
+                                                          selected
+                                                        @endif @endforeach>
+                                                    {{ $category->name }} </option>
                                             @endforeach
                                         </select>
                                     </div>

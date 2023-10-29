@@ -57,7 +57,8 @@ class AdminPostController extends Controller
         $post->body = $request->body;
         $post->save();
         $post->tags()->sync($request->tags);
-        $post->categories()->sync($request->cateories);
+        $post->categories()->sync($request->categories);
+        $post->save();
 
         return redirect( route('post.index'));
     }
@@ -81,7 +82,7 @@ class AdminPostController extends Controller
      */
     public function edit($id)
     {
-        $post= Post::where('id', $id)->first();
+        $post= Post::with('tags', 'categories')->where('id', $id)->first(); 
         $tags = Tag::all();
         $categories = Category:: all();
         return view('admin.post.edit', compact('tags','categories', 'post'));
@@ -109,7 +110,7 @@ class AdminPostController extends Controller
         $post->slug = $request->slug;
         $post->body = $request->body;
         $post->tags()->sync($request->tags);
-        $post->categories()->sync($request->cateories);
+        $post->categories()->sync($request->categories);
 
         $post->save();
 
