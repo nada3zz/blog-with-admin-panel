@@ -26,7 +26,7 @@ use App\Http\Controllers\User\UserPostController;
 Route::group(['namespace' => 'User'], function(){
 
     Route::get('/',  [UserHomeController::class, 'index']);
-    Route::get('post',  [UserPostController::class, 'index'])->name('post');
+    Route::get('post/{post}',  [UserPostController::class, 'post'])->name('post');
 
 });
 
